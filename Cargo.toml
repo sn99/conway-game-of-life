@@ -4,3 +4,4 @@ version = "0.1.0"
 authors = ["sn99 <siddharthn.099@gmail.com>"]
 
 [dependencies]
+termion = "*"
