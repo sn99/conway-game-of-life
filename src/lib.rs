@@ -18,8 +18,149 @@ pub fn print_grid(grid: &Vec<Vec<Cell>>) {
 pub fn update_grid(grid: &mut Vec<Vec<Cell>>) {
     let mut temp_grid = grid.clone();
 
-    for row in 1..(grid[0].len() - 1) {
-        for column in 1..(grid.len() - 1) {
+    let row_count = grid[0].len();
+    let column_count = grid.len();
+
+// Upper left Cell
+    {
+        let mut neighbour_count = 0;
+        if temp_grid[0][1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[1][0].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[1][1].life {
+            neighbour_count += 1;
+        }
+        temp_grid[0][0].neighbour = neighbour_count;
+    }
+// Upper right Cell
+    {
+        let mut neighbour_count = 0;
+        if temp_grid[0][column_count - 2].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[1][column_count - 2].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[1][column_count - 1].life {
+            neighbour_count += 1;
+        }
+        temp_grid[0][column_count - 1].neighbour = neighbour_count;
+    }
+// Lower left Cell
+    {
+        let mut neighbour_count = 0;
+        if temp_grid[row_count - 1][1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[row_count - 2][0].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[row_count - 2][1].life {
+            neighbour_count += 1;
+        }
+        temp_grid[row_count - 1][0].neighbour = neighbour_count;
+    }
+// Lower right Cell
+    {
+        let mut neighbour_count = 0;
+        if temp_grid[row_count - 1][column_count - 2].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[row_count - 2][column_count - 2].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[row_count - 2][column_count - 1].life {
+            neighbour_count += 1;
+        }
+        temp_grid[row_count - 1][column_count - 1].neighbour = neighbour_count;
+    }
+
+// For upper Row
+    for i in 1..(column_count - 1) {
+        let mut neighbour_count = 0;
+        if temp_grid[1][i - 1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[1][i].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[1][i + 1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[0][i - 1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[0][i + 1].life {
+            neighbour_count += 1;
+        }
+        temp_grid[0][i].neighbour = neighbour_count;
+    }
+// For lower Row
+    for i in 1..(column_count - 1) {
+        let mut neighbour_count = 0;
+        if temp_grid[row_count - 2][i - 1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[row_count - 2][i].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[row_count - 2][i + 1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[row_count - 1][i - 1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[row_count - 1][i + 1].life {
+            neighbour_count += 1;
+        }
+        temp_grid[row_count - 1][i].neighbour = neighbour_count;
+    }
+// For right Column
+    for i in 1..(row_count - 1) {
+        let mut neighbour_count = 0;
+        if temp_grid[i - 1][1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[i][1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[i + 1][1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[i - 1][0].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[i + 1][0].life {
+            neighbour_count += 1;
+        }
+        temp_grid[i][0].neighbour = neighbour_count;
+    }
+// For left Column
+    for i in 1..(row_count - 1) {
+        let mut neighbour_count = 0;
+        if temp_grid[i - 1][column_count - 2].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[i][column_count - 2].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[i + 1][column_count - 2].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[i + 1][column_count - 1].life {
+            neighbour_count += 1;
+        }
+        if temp_grid[i - 1][column_count - 1].life {
+            neighbour_count += 1;
+        }
+        temp_grid[i][column_count - 2].neighbour = neighbour_count;
+    }
+
+    for row in 1..(row_count - 1) {
+        for column in 1..(column_count - 1) {
             let mut neighbour_count = 0;
 
             if temp_grid[row - 1][column - 1].life {
@@ -50,8 +191,8 @@ pub fn update_grid(grid: &mut Vec<Vec<Cell>>) {
         }
     }
 
-    for row in 1..(grid[0].len() - 1) {
-        for column in 1..(grid.len() - 1) {
+    for row in 0..row_count {
+        for column in 0..column_count {
             if temp_grid[row][column].life {
                 if temp_grid[row][column].neighbour <= 1 {
                     grid[row][column].switch();

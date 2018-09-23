@@ -12,19 +12,28 @@ fn main() {
     grid[7][8].switch();
     grid[8][6].switch();
     grid[8][7].switch();
+    grid[0][0].switch();
+    grid[14][14].switch();
+    grid[0][14].switch();
+    grid[14][0].switch();
+    grid[1][0].switch();
+    grid[0][1].switch();
+    grid[1][1].switch();
+    grid[0][13].switch();
+    grid[1][12].switch();
 
-    print_grid(&grid);
+    for i in 0..16 {
+        print_grid(&grid);
 
-    update_grid(&mut grid);
+        update_grid(&mut grid);
 
-    println!();
+        println!();
 
-    print_grid(&grid);
+        print_grid(&grid);
 
-    update_grid(&mut grid);
+        update_grid(&mut grid);
 
-    println!();
-
-    print_grid(&grid);
+        println!();
+    }
 
 }
