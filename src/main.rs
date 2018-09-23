@@ -5,35 +5,43 @@ extern crate termion;
 use conway_game_of_life::*;
 
 fn main() {
-    let mut grid = vec![vec![Cell::new(false); 15]; 15];
+    let mut grid = vec![vec![Cell::new(false); 20]; 20];
 
-    grid[6][6].switch();
-    grid[7][7].switch();
-    grid[7][8].switch();
-    grid[8][6].switch();
-    grid[8][7].switch();
-    grid[0][0].switch();
-    grid[14][14].switch();
-    grid[0][14].switch();
-    grid[14][0].switch();
-    grid[1][0].switch();
-    grid[0][1].switch();
-    grid[1][1].switch();
-    grid[0][13].switch();
-    grid[1][12].switch();
+    println!("====================\n\
+    Welcome to conway's game of life\n\
+    ====================\n\
+    The Game of Life is not your typical computer game. It is a 'cellular automaton', and was invent\
+    ed by Cambridge mathematician John Conway.\nThis game became widely known when it was mentioned \
+    in an article published by Scientific American in 1970. It consists of a collection of cells whi\
+    ch, based on a few mathematical rules, can live, die or multiply. Depending on the initial condi\
+    tions, the cells form various patterns throughout the course of the game.\n\
+    ====================");
 
-    for i in 0..16 {
-        print_grid(&grid);
+    eprint!("\nThe shapes available are :\n====================\n1.glider\n2.tumbler\n=============\
+    =======\nEnter choice : ");
 
-        update_grid(&mut grid);
+    let mut temp_input = String::new();
+    std::io::stdin().read_line(&mut temp_input).expect("Error in 'input_message' function !");
 
-        println!();
-
-        print_grid(&grid);
-
-        update_grid(&mut grid);
-
-        println!();
+    if temp_input.trim() == "1" {
+        shapes::glider_shape(&mut grid);
+    }
+    if temp_input.trim() == "2" {
+        shapes::tumbler_shape(&mut grid);
     }
 
+    loop {
+        print_grid(&grid);
+
+        eprint!("enter 'y' for next iteration of grid and any other to exit : ");
+
+        let mut temp_input = String::new();
+        std::io::stdin().read_line(&mut temp_input).expect("Error in 'input_message' function !");
+
+        if temp_input.trim() == "y" || temp_input.trim() == "Y" {
+            update_grid(&mut grid);
+        } else {
+            break;
+        }
+    }
 }

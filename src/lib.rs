@@ -1,5 +1,7 @@
 extern crate termion;
 
+pub mod shapes;
+
 use termion::{color, style};
 
 pub fn print_grid(grid: &Vec<Vec<Cell>>) {
@@ -13,6 +15,7 @@ pub fn print_grid(grid: &Vec<Vec<Cell>>) {
         }
         println!();
     }
+    println!();
 }
 
 pub fn update_grid(grid: &mut Vec<Vec<Cell>>) {
